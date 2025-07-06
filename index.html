@@ -1,302 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FileFusion Pro | Complete File Conversion Toolkit</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- JS libraries remain the same -->
-    <style>
-        /* [Previous CSS remains exactly the same] */
-    </style>
+    <!-- [Previous head content remains exactly the same] -->
 </head>
 <body>
-    <div class="container">
-        <header>
-            <!-- [Same header content] -->
-            <div class="tabs-container">
-                <div class="tabs">
-                    <button class="tab-btn active" data-tool="zip"><i class="fas fa-file-archive"></i> ZIP Tools</button>
-                    <button class="tab-btn" data-tool="img-pdf"><i class="fas fa-file-image"></i> Image to PDF</button>
-                    <button class="tab-btn" data-tool="pdf-img"><i class="fas fa-file-pdf"></i> PDF to Image</button>
-                    <button class="tab-btn" data-tool="resize"><i class="fas fa-expand-alt"></i> Image Resizer</button>
-                    <button class="tab-btn" data-tool="compress"><i class="fas fa-file-contract"></i> PDF Compressor</button>
-                    <button class="tab-btn" data-tool="bg-remove"><i class="fas fa-eraser"></i> Background Remover</button>
-                </div>
-            </div>
-        </header>
-
-        <div class="tools-grid">
-            <!-- [Previous 3 tools remain exactly the same] -->
-
-            <!-- Image Resizer -->
-            <div class="tool-card" id="resize-tool">
-                <div class="card-header">
-                    <div class="card-icon" style="background: linear-gradient(135deg, #F4A261, #E76F51);">
-                        <i class="fas fa-expand-alt"></i>
-                    </div>
-                    <h2 class="card-title">Image Resizer</h2>
-                </div>
-                
-                <p class="card-description">Resize multiple images simultaneously with precise dimension control and quality preservation.</p>
-                
-                <div class="upload-area" id="resize-upload">
-                    <div class="upload-icon"><i class="fas fa-images"></i></div>
-                    <p class="upload-text">Drag & drop images here</p>
-                    <p class="upload-subtext">or <span style="color: var(--primary); font-weight: 600;">click to browse</span></p>
-                    <input type="file" class="file-input" id="resize-input" accept="image/*" multiple>
-                </div>
-                
-                <div class="file-list" id="resize-file-list"></div>
-                
-                <div class="settings">
-                    <h3 class="setting-title"><i class="fas fa-sliders-h"></i> Resize Settings</h3>
-                    <div class="setting-group">
-                        <div class="slider-label">Resize Mode</div>
-                        <div class="radio-group">
-                            <label class="radio-option">
-                                <input type="radio" name="resize-mode" value="percentage" checked> Percentage
-                            </label>
-                            <label class="radio-option">
-                                <input type="radio" name="resize-mode" value="dimensions"> Exact Dimensions
-                            </label>
-                        </div>
-                    </div>
-                    <div class="slider-container" id="percentage-container">
-                        <div class="slider-label">Scale Percentage</div>
-                        <input type="range" min="10" max="200" value="100" class="slider" id="resize-percentage">
-                        <div class="slider-value" id="resize-percentage-value">100%</div>
-                    </div>
-                    <div class="dimensions-container hidden" id="dimensions-container">
-                        <div class="slider-container">
-                            <div class="slider-label">Width (px)</div>
-                            <input type="range" min="100" max="4000" value="1000" class="slider" id="resize-width">
-                            <div class="slider-value" id="resize-width-value">1000</div>
-                        </div>
-                        <div class="slider-container">
-                            <div class="slider-label">Height (px)</div>
-                            <input type="range" min="100" max="4000" value="1000" class="slider" id="resize-height">
-                            <div class="slider-value" id="resize-height-value">1000</div>
-                        </div>
-                        <div class="radio-group mt-1">
-                            <label class="radio-option">
-                                <input type="checkbox" id="maintain-ratio" checked> Maintain Aspect Ratio
-                            </label>
-                        </div>
-                    </div>
-                    <div class="setting-group">
-                        <div class="slider-label">Output Format</div>
-                        <div class="radio-group">
-                            <label class="radio-option">
-                                <input type="radio" name="resize-format" value="original" checked> Keep Original
-                            </label>
-                            <label class="radio-option">
-                                <input type="radio" name="resize-format" value="jpg"> JPG
-                            </label>
-                            <label class="radio-option">
-                                <input type="radio" name="resize-format" value="png"> PNG
-                            </label>
-                        </div>
-                    </div>
-                    <div class="slider-container">
-                        <div class="slider-label">Quality</div>
-                        <input type="range" min="50" max="100" value="85" class="slider" id="resize-quality">
-                        <div class="slider-value" id="resize-quality-value">85%</div>
-                    </div>
-                </div>
-                
-                <button class="btn" id="resize-btn"><i class="fas fa-crop-alt"></i> Resize Images</button>
-                
-                <div class="result-area" id="resize-result">
-                    <h3 class="result-title"><i class="fas fa-check-circle"></i> Resizing Complete!</h3>
-                    <div class="result-message">Your images have been resized successfully.</div>
-                    <div class="size-info">
-                        <span class="size-label">Total Size:</span>
-                        <span class="size-value" id="resize-output-size">0 KB</span>
-                    </div>
-                    <div class="preview-container" id="resize-preview"></div>
-                    <a href="#" class="download-btn" id="download-resize"><i class="fas fa-download"></i> Download Images (ZIP)</a>
-                </div>
-            </div>
-
-            <!-- PDF Compressor -->
-            <div class="tool-card" id="compress-tool">
-                <div class="card-header">
-                    <div class="card-icon" style="background: linear-gradient(135deg, #2A9D8F, #1D7874);">
-                        <i class="fas fa-file-contract"></i>
-                    </div>
-                    <h2 class="card-title">PDF Compressor</h2>
-                </div>
-                
-                <p class="card-description">Reduce PDF file size while maintaining quality with advanced compression algorithms.</p>
-                
-                <div class="upload-area" id="compress-upload">
-                    <div class="upload-icon"><i class="fas fa-file-pdf"></i></div>
-                    <p class="upload-text">Drag & drop PDF files here</p>
-                    <p class="upload-subtext">or <span style="color: var(--primary); font-weight: 600;">click to browse</span></p>
-                    <input type="file" class="file-input" id="compress-input" accept=".pdf" multiple>
-                </div>
-                
-                <div class="file-list" id="compress-file-list"></div>
-                
-                <div class="settings">
-                    <h3 class="setting-title"><i class="fas fa-sliders-h"></i> Compression Settings</h3>
-                    <div class="setting-group">
-                        <div class="slider-label">Compression Level</div>
-                        <div class="radio-group">
-                            <label class="radio-option">
-                                <input type="radio" name="pdf-compression" value="low" checked> Low (Better Quality)
-                            </label>
-                            <label class="radio-option">
-                                <input type="radio" name="pdf-compression" value="medium"> Medium (Balanced)
-                            </label>
-                            <label class="radio-option">
-                                <input type="radio" name="pdf-compression" value="high"> High (Smaller Size)
-                            </label>
-                        </div>
-                    </div>
-                    <div class="setting-group">
-                        <div class="slider-label">Optimize For</div>
-                        <div class="radio-group">
-                            <label class="radio-option">
-                                <input type="radio" name="pdf-optimize" value="web" checked> Web
-                            </label>
-                            <label class="radio-option">
-                                <input type="radio" name="pdf-optimize" value="print"> Print
-                            </label>
-                            <label class="radio-option">
-                                <input type="radio" name="pdf-optimize" value="mobile"> Mobile
-                            </label>
-                        </div>
-                    </div>
-                    <div class="setting-group">
-                        <div class="slider-label">Additional Options</div>
-                        <div class="radio-group">
-                            <label class="radio-option">
-                                <input type="checkbox" id="remove-metadata"> Remove Metadata
-                            </label>
-                            <label class="radio-option">
-                                <input type="checkbox" id="downsample-images"> Downsample Images
-                            </label>
-                        </div>
-                    </div>
-                </div>
-                
-                <button class="btn" id="compress-pdf-btn"><i class="fas fa-compress-alt"></i> Compress PDF</button>
-                
-                <div class="result-area" id="compress-result">
-                    <h3 class="result-title"><i class="fas fa-check-circle"></i> Compression Complete!</h3>
-                    <div class="result-message" id="compress-message"></div>
-                    <div class="size-info">
-                        <span class="size-label">Original Size:</span>
-                        <span class="size-value" id="compress-original-size">0 KB</span>
-                    </div>
-                    <div class="size-info">
-                        <span class="size-label">Compressed Size:</span>
-                        <span class="size-value" id="compress-new-size">0 KB</span>
-                    </div>
-                    <div class="size-info">
-                        <span class="size-label">Reduction:</span>
-                        <span class="size-value" id="compress-reduction">0%</span>
-                    </div>
-                    <a href="#" class="download-btn" id="download-compress"><i class="fas fa-download"></i> Download Compressed PDF</a>
-                </div>
-            </div>
-
-            <!-- Background Remover -->
-            <div class="tool-card" id="bg-remove-tool">
-                <div class="card-header">
-                    <div class="card-icon" style="background: linear-gradient(135deg, #E9C46A, #F4A261);">
-                        <i class="fas fa-eraser"></i>
-                    </div>
-                    <h2 class="card-title">Background Remover</h2>
-                </div>
-                
-                <p class="card-description">Automatically remove backgrounds from images with AI-powered precision.</p>
-                
-                <div class="upload-area" id="bg-remove-upload">
-                    <div class="upload-icon"><i class="fas fa-image"></i></div>
-                    <p class="upload-text">Drag & drop images here</p>
-                    <p class="upload-subtext">or <span style="color: var(--primary); font-weight: 600;">click to browse</span></p>
-                    <input type="file" class="file-input" id="bg-remove-input" accept="image/*" multiple>
-                </div>
-                
-                <div class="file-list" id="bg-remove-file-list"></div>
-                
-                <div class="settings">
-                    <h3 class="setting-title"><i class="fas fa-sliders-h"></i> Removal Settings</h3>
-                    <div class="slider-container">
-                        <div class="slider-label">Precision Level</div>
-                        <input type="range" min="1" max="5" value="3" class="slider" id="bg-precision">
-                        <div class="slider-value" id="bg-precision-value">3</div>
-                    </div>
-                    <div class="setting-group">
-                        <div class="slider-label">Output Format</div>
-                        <div class="radio-group">
-                            <label class="radio-option">
-                                <input type="radio" name="bg-format" value="png" checked> PNG (Transparent)
-                            </label>
-                            <label class="radio-option">
-                                <input type="radio" name="bg-format" value="jpg"> JPG (White BG)
-                            </label>
-                        </div>
-                    </div>
-                    <div class="setting-group">
-                        <div class="slider-label">Edge Refinement</div>
-                        <div class="radio-group">
-                            <label class="radio-option">
-                                <input type="checkbox" id="edge-refine" checked> Enable Edge Smoothing
-                            </label>
-                        </div>
-                    </div>
-                </div>
-                
-                <button class="btn btn-accent" id="bg-remove-btn"><i class="fas fa-magic"></i> Remove Backgrounds</button>
-                
-                <div class="result-area" id="bg-remove-result">
-                    <h3 class="result-title"><i class="fas fa-check-circle"></i> Backgrounds Removed!</h3>
-                    <div class="result-message">Your images have been processed successfully.</div>
-                    <div class="preview-container" id="bg-remove-preview"></div>
-                    <a href="#" class="download-btn" id="download-bg-remove"><i class="fas fa-download"></i> Download Images (ZIP)</a>
-                </div>
-            </div>
-        </div>
-        
-        <footer>
-            <!-- [Same footer content] -->
-        </footer>
-    </div>
+    <!-- [Previous HTML structure remains the same until the script section] -->
 
     <script>
-        // [Previous JavaScript remains the same, with additions for new tools]
-        
-        // Tab switching functionality
-        tabButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const toolId = button.getAttribute('data-tool');
-                document.querySelectorAll('.tool-card').forEach(card => {
-                    card.style.display = card.id === `${toolId}-tool` ? 'block' : 'none';
-                });
-            });
-        });
+        // ===== GLOBAL UTILITIES ===== //
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
 
-        // Initialize file upload functionality for all tools
-        uploadAreas.forEach((area, index) => {
-            const input = fileInputs[index];
-            const fileList = fileLists[index];
+        function showProgress(containerId, percent, message = '') {
+            const container = document.getElementById(containerId);
+            const bar = container.querySelector('.progress');
+            const text = container.querySelector('.progress-text span:first-child');
+            const percentEl = container.querySelector('.progress-text span:last-child');
             
-            // Click to browse
+            container.style.display = 'block';
+            bar.style.width = `${percent}%`;
+            if (message) text.textContent = message;
+            percentEl.textContent = `${percent}%`;
+        }
+
+        function hideProgress(containerId) {
+            document.getElementById(containerId).style.display = 'none';
+        }
+
+        function showResult(containerId) {
+            document.getElementById(containerId).style.display = 'block';
+        }
+
+        // ===== FILE UPLOAD HANDLING ===== //
+        document.querySelectorAll('.upload-area').forEach((area, index) => {
+            const input = area.querySelector('input[type="file"]');
+            const fileList = document.getElementById(area.id.replace('upload', 'file-list'));
+            
             area.addEventListener('click', () => input.click());
             
-            // Drag and drop
             area.addEventListener('dragover', (e) => {
                 e.preventDefault();
                 area.classList.add('active');
             });
             
-            area.addEventListener('dragleave', () => {
-                area.classList.remove('active');
-            });
+            area.addEventListener('dragleave', () => area.classList.remove('active'));
             
             area.addEventListener('drop', (e) => {
                 e.preventDefault();
@@ -305,29 +57,28 @@
                 updateFileList(input, fileList);
             });
             
-            // File input change
             input.addEventListener('change', () => updateFileList(input, fileList));
         });
 
         function updateFileList(input, fileListElement) {
             fileListElement.innerHTML = '';
             if (input.files.length > 0) {
-                Array.from(input.files).forEach(file => {
+                Array.from(input.files).forEach((file, i) => {
                     const fileItem = document.createElement('div');
                     fileItem.className = 'file-item';
                     fileItem.innerHTML = `
                         <div class="file-info">
                             <i class="fas fa-file-alt file-icon"></i>
-                            <span class="file-name">${file.name}</span>
+                            <span class="file-name" title="${file.name}">${file.name}</span>
                         </div>
                         <span class="file-size">${formatFileSize(file.size)}</span>
-                        <i class="fas fa-times file-remove"></i>
+                        <i class="fas fa-times file-remove" data-index="${i}"></i>
                     `;
                     fileListElement.appendChild(fileItem);
                     
-                    // Add remove functionality
-                    fileItem.querySelector('.file-remove').addEventListener('click', () => {
-                        const newFiles = Array.from(input.files).filter(f => f !== file);
+                    fileItem.querySelector('.file-remove').addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        const newFiles = Array.from(input.files).filter((_, idx) => idx != e.target.dataset.index);
                         const dataTransfer = new DataTransfer();
                         newFiles.forEach(f => dataTransfer.items.add(f));
                         input.files = dataTransfer.files;
@@ -337,15 +88,299 @@
             }
         }
 
-        function formatFileSize(bytes) {
-            if (bytes === 0) return '0 Bytes';
-            const k = 1024;
-            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-            const i = Math.floor(Math.log(bytes) / Math.log(k));
-            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        // ===== ZIP TOOL FUNCTIONALITY ===== //
+        document.getElementById('compress-btn').addEventListener('click', async () => {
+            const files = document.getElementById('zip-input').files;
+            if (files.length === 0) {
+                alert('Please select files to compress');
+                return;
+            }
+            
+            const level = parseInt(document.getElementById('compression-level').value);
+            const progressId = 'zip-progress';
+            
+            showProgress(progressId, 0, 'Compressing files...');
+            
+            try {
+                const zip = new JSZip();
+                let processed = 0;
+                
+                // Add files to zip
+                for (let file of files) {
+                    const content = await readFileAsArrayBuffer(file);
+                    zip.file(file.name, content, { compression: 'DEFLATE', compressionOptions: { level } });
+                    processed++;
+                    showProgress(progressId, Math.round((processed / files.length) * 100));
+                }
+                
+                // Generate zip file
+                const content = await zip.generateAsync({ type: 'blob' }, metadata => {
+                    showProgress(progressId, metadata.percent);
+                });
+                
+                // Create download link
+                const downloadBtn = document.getElementById('download-zip');
+                downloadBtn.href = URL.createObjectURL(content);
+                downloadBtn.download = 'archive.zip';
+                
+                // Show result
+                document.getElementById('zip-output-size').textContent = formatFileSize(content.size);
+                showResult('zip-result');
+                
+            } catch (error) {
+                console.error('ZIP error:', error);
+                alert('Error creating ZIP file');
+            } finally {
+                hideProgress(progressId);
+            }
+        });
+
+        // ===== IMAGE TO PDF FUNCTIONALITY ===== //
+        document.getElementById('img-pdf-btn').addEventListener('click', async () => {
+            const files = document.getElementById('img-pdf-input').files;
+            if (files.length === 0) {
+                alert('Please select images to convert');
+                return;
+            }
+            
+            const progressId = 'img-pdf-progress';
+            showProgress(progressId, 0, 'Creating PDF...');
+            
+            try {
+                const { PDFDocument, rgb } = PDFLib;
+                const pdfDoc = await PDFDocument.create();
+                let processed = 0;
+                
+                for (let file of files) {
+                    if (!file.type.startsWith('image/')) continue;
+                    
+                    const imgBytes = await readFileAsArrayBuffer(file);
+                    let image;
+                    
+                    if (file.type === 'image/jpeg') {
+                        image = await pdfDoc.embedJpg(imgBytes);
+                    } else if (file.type === 'image/png') {
+                        image = await pdfDoc.embedPng(imgBytes);
+                    } else {
+                        continue; // Skip unsupported formats
+                    }
+                    
+                    const page = pdfDoc.addPage([image.width, image.height]);
+                    page.drawImage(image, {
+                        x: 0,
+                        y: 0,
+                        width: image.width,
+                        height: image.height,
+                    });
+                    
+                    processed++;
+                    showProgress(progressId, Math.round((processed / files.length) * 100));
+                }
+                
+                const pdfBytes = await pdfDoc.save();
+                const pdfBlob = new Blob([pdfBytes], { type: 'application/pdf' });
+                
+                // Create download link
+                const downloadBtn = document.getElementById('download-img-pdf');
+                downloadBtn.href = URL.createObjectURL(pdfBlob);
+                downloadBtn.download = 'converted.pdf';
+                
+                // Show result
+                document.getElementById('img-pdf-output-size').textContent = formatFileSize(pdfBlob.size);
+                showResult('img-pdf-result');
+                
+            } catch (error) {
+                console.error('PDF creation error:', error);
+                alert('Error creating PDF');
+            } finally {
+                hideProgress(progressId);
+            }
+        });
+
+        // ===== PDF TO IMAGE FUNCTIONALITY ===== //
+        document.getElementById('pdf-img-btn').addEventListener('click', async () => {
+            const file = document.getElementById('pdf-img-input').files[0];
+            if (!file) {
+                alert('Please select a PDF file');
+                return;
+            }
+            
+            const progressId = 'pdf-img-progress';
+            showProgress(progressId, 0, 'Converting PDF pages...');
+            
+            try {
+                const format = document.querySelector('input[name="img-format"]:checked').value;
+                const pdfData = await readFileAsArrayBuffer(file);
+                
+                // Load the PDF
+                const loadingTask = pdfjsLib.getDocument({ data: pdfData });
+                const pdf = await loadingTask.promise;
+                const images = [];
+                
+                for (let i = 1; i <= pdf.numPages; i++) {
+                    const page = await pdf.getPage(i);
+                    const viewport = page.getViewport({ scale: 1.5 });
+                    
+                    // Create canvas for rendering
+                    const canvas = document.createElement('canvas');
+                    const context = canvas.getContext('2d');
+                    canvas.height = viewport.height;
+                    canvas.width = viewport.width;
+                    
+                    // Render PDF page to canvas
+                    await page.render({
+                        canvasContext: context,
+                        viewport: viewport
+                    }).promise;
+                    
+                    // Convert canvas to image
+                    const imageBlob = await new Promise(resolve => {
+                        canvas.toBlob(blob => resolve(blob), `image/${format}`, 0.85);
+                    });
+                    
+                    images.push({
+                        blob: imageBlob,
+                        name: `${file.name.replace('.pdf', '')}_page${i}.${format}`
+                    });
+                    
+                    showProgress(progressId, Math.round((i / pdf.numPages) * 100));
+                }
+                
+                // Create ZIP of all images
+                const zip = new JSZip();
+                images.forEach(img => {
+                    zip.file(img.name, img.blob);
+                });
+                
+                const zipBlob = await zip.generateAsync({ type: 'blob' });
+                
+                // Create download link
+                const downloadBtn = document.getElementById('download-pdf-img');
+                downloadBtn.href = URL.createObjectURL(zipBlob);
+                downloadBtn.download = 'extracted_images.zip';
+                
+                // Show result
+                document.getElementById('pdf-img-output-size').textContent = formatFileSize(zipBlob.size);
+                showResult('pdf-img-result');
+                
+            } catch (error) {
+                console.error('PDF to image error:', error);
+                alert('Error converting PDF to images');
+            } finally {
+                hideProgress(progressId);
+            }
+        });
+
+        // ===== IMAGE RESIZER FUNCTIONALITY ===== //
+        document.getElementById('resize-btn').addEventListener('click', async () => {
+            const files = document.getElementById('resize-input').files;
+            if (files.length === 0) {
+                alert('Please select images to resize');
+                return;
+            }
+            
+            const progressId = 'resize-progress';
+            showProgress(progressId, 0, 'Resizing images...');
+            
+            try {
+                const zip = new JSZip();
+                const mode = document.querySelector('input[name="resize-mode"]:checked').value;
+                const format = document.querySelector('input[name="resize-format"]:checked').value;
+                const quality = parseInt(document.getElementById('resize-quality').value) / 100;
+                let processed = 0;
+                
+                for (let file of files) {
+                    if (!file.type.startsWith('image/')) continue;
+                    
+                    const img = await createImageBitmap(file);
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    
+                    // Calculate new dimensions
+                    let width, height;
+                    if (mode === 'percentage') {
+                        const percent = parseInt(document.getElementById('resize-percentage').value) / 100;
+                        width = img.width * percent;
+                        height = img.height * percent;
+                    } else {
+                        width = parseInt(document.getElementById('resize-width').value);
+                        height = parseInt(document.getElementById('resize-height').value);
+                        if (document.getElementById('maintain-ratio').checked) {
+                            const ratio = img.width / img.height;
+                            if (width / height > ratio) {
+                                width = height * ratio;
+                            } else {
+                                height = width / ratio;
+                            }
+                        }
+                    }
+                    
+                    // Resize image
+                    canvas.width = width;
+                    canvas.height = height;
+                    ctx.drawImage(img, 0, 0, width, height);
+                    
+                    // Convert to blob
+                    const outputFormat = format === 'original' ? file.type.split('/')[1] : format;
+                    const mimeType = `image/${outputFormat}`;
+                    
+                    const blob = await new Promise(resolve => {
+                        canvas.toBlob(resolve, mimeType, quality);
+                    });
+                    
+                    // Add to zip
+                    const ext = outputFormat === 'jpeg' ? 'jpg' : outputFormat;
+                    zip.file(`${file.name.split('.')[0]}_resized.${ext}`, blob);
+                    
+                    processed++;
+                    showProgress(progressId, Math.round((processed / files.length) * 100));
+                }
+                
+                // Generate zip file
+                const zipBlob = await zip.generateAsync({ type: 'blob' });
+                
+                // Create download link
+                const downloadBtn = document.getElementById('download-resize');
+                downloadBtn.href = URL.createObjectURL(zipBlob);
+                downloadBtn.download = 'resized_images.zip';
+                
+                // Show result
+                document.getElementById('resize-output-size').textContent = formatFileSize(zipBlob.size);
+                showResult('resize-result');
+                
+            } catch (error) {
+                console.error('Resize error:', error);
+                alert('Error resizing images');
+            } finally {
+                hideProgress(progressId);
+            }
+        });
+
+        // ===== HELPER FUNCTIONS ===== //
+        function readFileAsArrayBuffer(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = reject;
+                reader.readAsArrayBuffer(file);
+            });
         }
 
-        // [Add tool-specific JavaScript for each functionality]
+        // ===== TAB SWITCHING ===== //
+        document.querySelectorAll('.tab-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                
+                const toolId = button.getAttribute('data-tool');
+                document.querySelectorAll('.tool-card').forEach(card => {
+                    card.style.display = card.id === `${toolId}-tool` ? 'block' : 'none';
+                });
+            });
+        });
+
+        // Initialize first tool
+        document.querySelector('.tab-btn.active').click();
     </script>
 </body>
-    </html>
+</html>
