@@ -1,27 +1,613 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>File-To-File</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Tools Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        }
+
+        :root {
+            --sidebar-bg: #1e293b;
+            --sidebar-text: #cbd5e1;
+            --sidebar-hover: #334155;
+            --sidebar-active: #0ea5e9;
+            --main-bg: #f8fafc;
+            --card-bg: #ffffff;
+            --border-color: #e2e8f0;
+            --primary: #3b82f6;
+            --primary-hover: #2563eb;
+            --success: #10b981;
+            --text-dark: #1e293b;
+            --text-light: #64748b;
+        }
+
+        body {
+            background-color: var(--main-bg);
+            color: var(--text-dark);
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: 280px;
+            background-color: var(--sidebar-bg);
+            color: var(--sidebar-text);
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+        }
+
+        .logo {
+            padding: 24px 20px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #334155;
+        }
+
+        .logo i {
+            font-size: 28px;
+            color: var(--sidebar-active);
+            margin-right: 12px;
+        }
+
+        .logo h1 {
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .sidebar-search {
+            padding: 16px 20px;
+            position: relative;
+        }
+
+        .sidebar-search input {
+            width: 100%;
+            padding: 10px 16px 10px 40px;
+            border-radius: 8px;
+            border: none;
+            background-color: #334155;
+            color: white;
+            font-size: 14px;
+        }
+
+        .sidebar-search input::placeholder {
+            color: #94a3b8;
+        }
+
+        .sidebar-search i {
+            position: absolute;
+            left: 32px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+        }
+
+        .sidebar-tools {
+            padding: 16px 0;
+            overflow-y: auto;
+            flex-grow: 1;
+        }
+
+        .tool-category {
+            padding: 8px 20px;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #94a3b8;
+            margin-top: 10px;
+        }
+
+        .tool-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-left: 3px solid transparent;
+        }
+
+        .tool-item:hover {
+            background-color: var(--sidebar-hover);
+        }
+
+        .tool-item.active {
+            background-color: var(--sidebar-hover);
+            border-left: 3px solid var(--sidebar-active);
+        }
+
+        .tool-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background-color: #334155;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            font-size: 16px;
+        }
+
+        .tool-info {
+            flex-grow: 1;
+        }
+
+        .tool-name {
+            font-weight: 600;
+            font-size: 15px;
+            margin-bottom: 2px;
+        }
+
+        .tool-desc {
+            font-size: 13px;
+            color: #94a3b8;
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: auto;
+        }
+
+        .top-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 30px;
+            background-color: var(--card-bg);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--text-dark);
+        }
+
+        .user-actions {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-actions button {
+            background: none;
+            border: none;
+            font-size: 20px;
+            margin-left: 15px;
+            color: var(--text-light);
+            cursor: pointer;
+            position: relative;
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: var(--primary);
+            color: white;
+            font-size: 10px;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Tool Content */
+        .tool-content {
+            flex-grow: 1;
+            padding: 30px;
+            max-width: 1000px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .tool-header {
+            margin-bottom: 30px;
+        }
+
+        .tool-header h2 {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .tool-header p {
+            font-size: 16px;
+            color: var(--text-light);
+        }
+
+        .upload-card {
+            background-color: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+
+        .upload-area {
+            border: 2px dashed var(--border-color);
+            border-radius: 12px;
+            padding: 40px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .upload-area:hover {
+            border-color: var(--primary);
+            background-color: #f0f7ff;
+        }
+
+        .upload-icon {
+            font-size: 48px;
+            color: var(--primary);
+            margin-bottom: 16px;
+        }
+
+        .upload-text h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .upload-text p {
+            color: var(--text-light);
+            margin-bottom: 16px;
+        }
+
+        .browse-btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .browse-btn:hover {
+            background-color: var(--primary-hover);
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        /* Recent Tools */
+        .recent-tools {
+            margin-top: 30px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 20px;
+        }
+
+        .tool-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+            cursor: pointer;
+            border: 1px solid var(--border-color);
+        }
+
+        .tool-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .tool-card i {
+            font-size: 24px;
+            color: var(--primary);
+            margin-bottom: 12px;
+        }
+
+        .tool-card h3 {
+            font-size: 16px;
+            margin-bottom: 6px;
+        }
+
+        .tool-card p {
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        /* Responsive styles */
+        @media (max-width: 900px) {
+            .sidebar {
+                position: fixed;
+                left: -280px;
+                height: 100%;
+                z-index: 100;
+            }
+            
+            .sidebar.active {
+                left: 0;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .top-bar {
+                padding: 15px 20px;
+            }
+            
+            .tool-content {
+                padding: 20px;
+            }
+            
+            .upload-card {
+                padding: 20px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <header class="topbar">
-    <h1>File-To-File</h1>
-    <input type="text" id="toolSearch" placeholder="Search tools..." />
-  </header>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="logo">
+            <i class="fas fa-tools"></i>
+            <h1>File Tools</h1>
+        </div>
+        
+        <div class="sidebar-search">
+            <i class="fas fa-search"></i>
+            <input type="text" placeholder="Search for tools...">
+        </div>
+        
+        <div class="sidebar-tools">
+            <div class="tool-category">Popular Tools</div>
+            
+            <div class="tool-item active">
+                <div class="tool-icon">
+                    <i class="fas fa-file-pdf"></i>
+                </div>
+                <div class="tool-info">
+                    <div class="tool-name">Image to PDF</div>
+                    <div class="tool-desc">Convert image files to a single PDF</div>
+                </div>
+            </div>
+            
+            <div class="tool-item">
+                <div class="tool-icon">
+                    <i class="fas fa-weight-hanging"></i>
+                </div>
+                <div class="tool-info">
+                    <div class="tool-name">File Size Checker</div>
+                    <div class="tool-desc">Check the size of your files</div>
+                </div>
+            </div>
+            
+            <div class="tool-item">
+                <div class="tool-icon">
+                    <i class="fas fa-compress-arrows-alt"></i>
+                </div>
+                <div class="tool-info">
+                    <div class="tool-name">Compress Image</div>
+                    <div class="tool-desc">Reduce the file size of an image</div>
+                </div>
+            </div>
+            
+            <div class="tool-item">
+                <div class="tool-icon">
+                    <i class="fas fa-sync"></i>
+                </div>
+                <div class="tool-info">
+                    <div class="tool-name">Rotate Image</div>
+                    <div class="tool-desc">Rotate an image left or right</div>
+                </div>
+            </div>
+            
+            <div class="tool-item">
+                <div class="tool-icon">
+                    <i class="fas fa-moon"></i>
+                </div>
+                <div class="tool-info">
+                    <div class="tool-name">Grayscale</div>
+                    <div class="tool-desc">Apply grayscale filter to an image</div>
+                </div>
+            </div>
+            
+            <div class="tool-item">
+                <div class="tool-icon">
+                    <i class="fas fa-exchange-alt"></i>
+                </div>
+                <div class="tool-info">
+                    <div class="tool-name">PNG to JPG</div>
+                    <div class="tool-desc">Convert PNG images to JPG format</div>
+                </div>
+            </div>
+            
+            <div class="tool-category">Developer Tools</div>
+            
+            <div class="tool-item">
+                <div class="tool-icon">
+                    <i class="fas fa-link"></i>
+                </div>
+                <div class="tool-info">
+                    <div class="tool-name">URL Encoder</div>
+                    <div class="tool-desc">Encode a URL by replacing special characters</div>
+                </div>
+            </div>
+            
+            <div class="tool-item">
+                <div class="tool-icon">
+                    <i class="fas fa-code"></i>
+                </div>
+                <div class="tool-info">
+                    <div class="tool-name">JSON Formatter</div>
+                    <div class="tool-desc">Format and beautify JSON data</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="top-bar">
+            <button class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="user-actions">
+                <button>
+                    <i class="far fa-bell"></i>
+                    <span class="notification-badge">3</span>
+                </button>
+                <button>
+                    <i class="far fa-user"></i>
+                </button>
+            </div>
+        </div>
+        
+        <div class="tool-content">
+            <div class="tool-header">
+                <h2>Image to PDF</h2>
+                <p>Convert image files to a single PDF document</p>
+            </div>
+            
+            <div class="upload-card">
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-icon">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                    </div>
+                    <div class="upload-text">
+                        <h3>Drop your files here</h3>
+                        <p>or click to browse files on your computer</p>
+                        <div class="browse-btn">Browse Files</div>
+                    </div>
+                    <input type="file" id="fileInput" accept="image/*" multiple>
+                </div>
+            </div>
+            
+            <div class="recent-tools">
+                <h3 class="section-title">Recently Used Tools</h3>
+                <div class="tools-grid">
+                    <div class="tool-card">
+                        <i class="fas fa-file-pdf"></i>
+                        <h3>Image to PDF</h3>
+                        <p>Convert images to PDF</p>
+                    </div>
+                    <div class="tool-card">
+                        <i class="fas fa-weight-hanging"></i>
+                        <h3>File Size Checker</h3>
+                        <p>Check file sizes</p>
+                    </div>
+                    <div class="tool-card">
+                        <i class="fas fa-code"></i>
+                        <h3>JSON Formatter</h3>
+                        <p>Format JSON data</p>
+                    </div>
+                    <div class="tool-card">
+                        <i class="fas fa-exchange-alt"></i>
+                        <h3>PNG to JPG</h3>
+                        <p>Convert image formats</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-  <div class="container">
-    <aside class="sidebar" id="sidebar">
-      <h3>🔧 Tools</h3>
-      <ul id="toolList"></ul>
-    </aside>
-    <main class="tool-area" id="toolArea">
-      <p>Select a tool from the sidebar to begin.</p>
-    </main>
-  </div>
-
-  <script src="script.js"></script>
+    <script>
+        // Toggle sidebar on mobile
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            document.querySelector('.sidebar').classList.toggle('active');
+        });
+        
+        // Handle file upload
+        const uploadArea = document.getElementById('uploadArea');
+        const fileInput = document.getElementById('fileInput');
+        
+        uploadArea.addEventListener('click', () => {
+            fileInput.click();
+        });
+        
+        fileInput.addEventListener('change', function() {
+            if (this.files.length > 0) {
+                const fileName = this.files[0].name;
+                uploadArea.querySelector('h3').textContent = `${this.files.length} file${this.files.length > 1 ? 's' : ''} selected`;
+                uploadArea.querySelector('p').textContent = `Ready to convert to PDF`;
+            }
+        });
+        
+        // Tool selection
+        document.querySelectorAll('.tool-item').forEach(item => {
+            item.addEventListener('click', function() {
+                // Remove active class from all items
+                document.querySelectorAll('.tool-item').forEach(i => {
+                    i.classList.remove('active');
+                });
+                
+                // Add active class to clicked item
+                this.classList.add('active');
+                
+                // Update main content
+                const toolName = this.querySelector('.tool-name').textContent;
+                const toolDesc = this.querySelector('.tool-desc').textContent;
+                
+                document.querySelector('.tool-header h2').textContent = toolName;
+                document.querySelector('.tool-header p').textContent = toolDesc;
+                
+                // Update upload card content
+                if (toolName === 'Image to PDF') {
+                    document.querySelector('.upload-area h3').textContent = 'Drop your files here';
+                    document.querySelector('.upload-area p').textContent = 'or click to browse files on your computer';
+                    fileInput.accept = 'image/*';
+                } else if (toolName === 'File Size Checker') {
+                    document.querySelector('.upload-area h3').textContent = 'Upload files to check size';
+                    document.querySelector('.upload-area p').textContent = 'Supports all file types';
+                    fileInput.accept = '*';
+                } else if (toolName === 'JSON Formatter') {
+                    document.querySelector('.upload-area h3').textContent = 'Upload JSON file';
+                    document.querySelector('.upload-area p').textContent = 'or paste JSON content directly';
+                    fileInput.accept = '.json';
+                }
+            });
+        });
+        
+        // Tool card interaction
+        document.querySelectorAll('.tool-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const toolName = this.querySelector('h3').textContent;
+                
+                // Find matching tool in sidebar and click it
+                document.querySelectorAll('.tool-item').forEach(item => {
+                    if (item.querySelector('.tool-name').textContent === toolName) {
+                        item.click();
+                    }
+                });
+                
+                // Scroll to top
+                document.querySelector('.tool-content').scrollTop = 0;
+            });
+        });
+    </script>
 </body>
 </html>
