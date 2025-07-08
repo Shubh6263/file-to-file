@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>File-To-File</title>
+ <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="header">
+    <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+    <div class="logo">File-To-File</div>
+    <div class="search-wrapper">
+  <div class="search-container" id="searchContainer">
+  <span class="search-icon">🔍</span>
+  <input type="text" placeholder="Search tools..." id="searchInput" autocomplete="off" />
+  <span class="filter-icon" title="Filter">⚙️</span>
+
+  <!-- 🔽 Suggestion List -->
+  <ul id="suggestionBox" class="suggestions"></ul>
+</div>
+  <button class="search-button">Search</button>
+</div>
+  <!-- 👇 Add Login & Account -->
+  <div class="login-wrapper">
+    <button class="login-btn">Login/Signup</button>
+    <div class="user-icon" title="Account">👤</div>
+  </div>
+  </div>
+  </div>
+ <!-- Login/Signup Modal -->
+<div id="loginModal" class="modal">
+  <div class="modal-content">
+    <span class="close-btn" onclick="closeModal()">×</span>
+
+    <!-- Login Form -->
+    <div id="loginForm" class="form-panel">
+      <h2>Login</h2>
+      <input type="email" placeholder="Email" class="modal-input" />
+      <input type="password" placeholder="Password" class="modal-input" />
+      <button class="modal-button">Login</button>
+      <p style="text-align:center; font-size: 14px; margin-top: 14px;">
+        Don't have an account? <a href="#" onclick="showSignup()">Sign up</a>
+      </p>
+    </div>
+
+    <!-- Signup Form -->
+    <div id="signupForm" class="form-panel" style="display: none;">
+      <h2>Sign Up</h2>
+      <input type="text" placeholder="Full Name" class="modal-input" />
+      <input type="email" placeholder="Email" class="modal-input" />
+      <input type="password" placeholder="Password" class="modal-input" />
+      <input type="password" placeholder="Confirm Password" class="modal-input" />
+      <button class="modal-button">Create Account</button>
+      <p style="text-align:center; font-size: 14px; margin-top: 14px;">
+        Already have an account? <a href="#" onclick="showLogin()">Login</a>
+      </p>
+    </div>
+  </div>
+</div>
+
+
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <div class="tool-item">Image to PDF</div>
+    <div class="tool-item">PDF to Image</div>
+    <div class="tool-item">Compress Image</div>
+    <div class="tool-item">Merge PDF</div>
+    <div class="tool-item">Split PDF</div>
+    <div class="tool-item">Text to PDF</div>
+    <div class="tool-item">Base64 Encode</div>
+    <div class="tool-item">Base64 Decode</div>
+    <div class="tool-item">Word Counter</div>
+    <div class="tool-item">Text Encrypt</div>
+    <div class="tool-item">Text Decrypt</div>
+    <div class="tool-item">Uppercase/Lowercase</div>
+    <div class="tool-item">Image Resizer</div>
+    <div class="tool-item">CSV to JSON</div>
+    <div class="tool-item">JSON to CSV</div>
+    <div class="tool-item">QR Code Generator</div>
+    <div class="tool-item">QR Code Scanner</div>
+    <div class="tool-item">Color Picker</div>
+    <div class="tool-item">URL Encoder</div>
+    <div class="tool-item">URL Decoder</div>
+    <div class="tool-item">HTML Minifier</div>
+    <div class="tool-item">CSS Minifier</div>
+    <div class="tool-item">JS Minifier</div>
+    <div class="tool-item">Diff Checker</div>
+    <div class="tool-item">Markdown Preview</div>
+    <div class="tool-item">Lorem Generator</div>
+    <div class="tool-item">Password Generator</div>
+    <div class="tool-item">Unit Converter</div>
+    <div class="tool-item">Image Converter</div>
+    <div class="tool-item">Audio Converter</div>
+    <div class="tool-item">Video Converter</div>
+    <div class="tool-item">PDF Unlock</div>
+    <div class="tool-item">PDF Rotate</div>
+    <div class="tool-item">PDF Watermark</div>
+    <div class="tool-item">PDF to Word</div>
+    <div class="tool-item">Word to PDF</div>
+    <div class="tool-item">Excel to PDF</div>
+    <div class="tool-item">PDF to Excel</div>
+    <div class="tool-item">Image to Text</div>
+    <div class="tool-item">Text to Speech</div>
+    <div class="tool-item">Speech to Text</div>
+    <div class="tool-item">Remove Background</div>
+    <div class="tool-item">Image Crop</div>
+    <div class="tool-item">Image Rotate</div>
+    <div class="tool-item">Zip Extractor</div>
+    <div class="tool-item">Zip Creator</div>
+    <div class="tool-item">JS Beautifier</div>
+    <div class="tool-item">JSON Beautifier</div>
+    <div class="tool-item">Base Converter</div>
+    <div class="tool-item">Date Formatter</div>
+    <div class="tool-item">Epoch Converter</div>
+    <div class="tool-item">Text Cleaner</div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-container" id="main">
+   <div class="tool-grid">
+   <!-- START: Tool Cards -->
+   <div class="tool-card" onclick="openTool('tools/audio-tools.html')">
+     <img src="icons/icons8-audio-100 (1).png" alt="Audio Tools" class="tool-icon">
+     <div class="tool-content">
+      <h3>Audio tools</h3>
+     <p>Use Audio tool easily and quickly.</p>
+     </div>
+   </div>
+
+    <div class="tool-card" onclick="openTool('tools/base64-decoder.html')">
+      <img src="icons/icons8-64-bit-100.png" alt="PDF to Image" class="tool-icon">
+      <div class="tool-content">
+       <h3>Base64 Decoder</h3>
+      <p>Use the PDF to Image tool easily and quickly.</p>
+      </div>
+    </div>
+
+    <div class="tool-card" onclick="openTool('tools/base64-encoder.html')">
+      <img src="icons/icons8-64-bit-100.png" alt="PDF Merge" class="tool-icon">
+     <div class="tool-content">
+     <h3>Base64 Encoder</h3>
+     <p>Use the PDF Merge tool easily and quickly.</p>
+     </div>
+   </div>
+   <div class="tool-card" onclick="openTool('tools/base64-image-converter.html')">
+     <div class="tool-icon">
+     <img src="icons/icons8-64-bit-100.png" alt="Base Image Converter">
+     </div>
+     <div class="tool-content">
+     <h3>Base64 Image Converter</h3>
+     <p>Use tool easily and quickly.</p>
+     </div>
+     <button class="open-btn">Open Tool</button>
+   </div>
+
+    <div class="tool-card" onclick="openTool('tools/case-converter.html')">
+  <div class="tool-icon">
+    <img src="icons/icons8-case-60.png" alt="Case Converter">
+  </div>
+  <div class="tool-content">
+    <h3>Cass Converter</h3>
+    <p>Use Case Converter tool easily and quickly.</p>
+  </div>
+  <button class="open-btn">Open Tool</button>
+    </div>
+
+    <div class="tool-card" onclick="openTool('tools/case-inverter.html')">
+     <div class="tool-icon">
+       <img src="icons/icons8-case-60.png" alt="Case Inverter">
+     </div>
+     <div class="tool-content">
+       <h3>Case Inverter</h3>
+       <p>Use tool easily and quickly.</p>
+     </div>
+     <button class="open-btn">Open Tool</button>
+    </div>
+
+    <div class="tool-card" onclick="openTool('tools/character-counter.html')">
+     <img src="icons/icons8-character-100.png" alt="Character Counter" class="tool-icon">
+     <div class="tool-content">
+      <h3>Character Counter</h3>
+     <p>Use Character Counter tool easily and quickly.</p>
+     </div>
+    </div>
+   
+    <div class="tool-card" onclick="openTool('tools/character-frequency-counter.html')">
+     <img src="icons/icons8-character-100.png" alt="Character Frequency Counter" class="tool-icon">
+     <div class="tool-content">
+      <h3>Character Frequency Counter</h3>
+     <p>Use Character Frequency Counter tool easily and quickly.</p>
+     </div>
+    </div>
+
+    <div class="tool-card" onclick="openTool('tools/clipboard-copy.html')">
+     <img src="icons/icons8-clipboard-100.png" alt="Clipboard Copy" class="tool-icon">
+     <div class="tool-content">
+      <h3>Clipboard Copy</h3>
+     <p>Use Clipboard Copy tool easily and quickly.</p>
+     </div>
+   </div>
+
+    <div class="tool-card" onclick="openTool('tools/csv-to-json.html')">
+     <img src="icons/icons8-json-download-100.png" alt="Csv To Json" class="tool-icon">
+     <div class="tool-content">
+      <h3>CSV To JSON</h3>
+     <p>Use Csv To Json tool easily and quickly.</p>
+     </div>
+   </div>
+
+    <div class="tool-card" onclick="openTool('tools/file-renamer.html')">
+     <img src="icons/icons8-file-100.png" alt="File-Renamer" class="tool-icon">
+     <div class="tool-content">
+      <h3>File-Renamer</h3>
+     <p>Use File-Renamer tool easily and quickly.</p>
+     </div>
+   </div>
+
+    <div class="tool-card" onclick="openTool('tools/file-size-checker.html')">
+     <img src="icons/icons8-file-100.png" alt="File Size Checker" class="tool-icon">
+     <div class="tool-content">
+      <h3>File Size Checker</h3>
+     <p>Use File Size Checker tool easily and quickly.</p>
+     </div>
+   </div>
+
+    <div class="tool-card" onclick="openTool('tools/file-type-checker.html')">
+     <img src="icons/icons8-file-100.png" alt="File Type Checker" class="tool-icon">
+     <div class="tool-content">
+      <h3>File Type Checker</h3>
+     <p>Use File Type Checker tool easily and quickly.</p>
+     </div>
+   </div>
+
+    <div class="tool-card" onclick="openTool('tools/html-beautifier.html')">
+     <img src="icons/icons8-html-80.png" alt="/Html Beautifier" class="tool-icon">
+     <div class="tool-content">
+      <h3>Html Beautifier</h3>
+     <p>Use Html Beautifier tool easily and quickly.</p>
+     </div>
+   </div>
+
+    <div class="tool-card" onclick="openTool('tools/html-minifier.html')">
+     <img src="icons/icons8-html-80.png" alt="Html Minifier" class="tool-icon">
+     <div class="tool-content">
+      <h3>Html Minifier</h3>
+     <p>Use Html Minifier tool easily and quickly.</p>
+     </div>
+   </div>
+
+    <div class="tool-card" onclick="openTool('tools/html-preview.html')">
+     <img src="icons/icons8-html-80.png" alt="Html Preview" class="tool-icon">
+     <div class="tool-content">
+      <h3>Html Preview</h3>
+     <p>Use Html Preview tool easily and quickly.</p>
+     </div>
+   </div>
+
+    <div class="tool-card" onclick="openTool('tools/html-to-jsx.html')">
+     <img src="icons/icons8-html-80.png" alt="Html To Jsx" class="tool-icon">
+     <div class="tool-content">
+      <h3>Html To Jsx</h3>
+     <p>Use Html To Jsx tool easily and quickly.</p>
+     </div>
+   </div>
+
+    <div class="tool-card" onclick="openTool('tools/image-compress.html')">
+     <img src="icons/icons8-compress-100.png" alt="Image Compress" class="tool-icon">
+     <div class="tool-content">
+      <h3>Image Compress</h3>
+     <p>Use Image Compress tool easily and quickly.</p>
+     </div>
+   </div>
+
+    <div class="tool-card" onclick="openTool('tools/image-converter.html')">
+     <img src="icons/icons8-image-100.png" alt="Image Converter" class="tool-icon">
+     <div class="tool-content">
+      <h3>Image Converter</h3>
+     <p>Use Image Converter tool easily and quickly.</p>
+     </div>
+   </div>
+
+    <div class="tool-card" onclick="openTool('tools/image-dimensions-checker.html')">
+     <img src="icons/icons8-image-100.png" alt="Image Dimensions Checker" class="tool-icon">
+     <div class="tool-content">
+      <h3>Image Dimensions Checker</h3>
+     <p>Use Image Dimensions Checker tool easily and quickly.</p>
+     </div>
+   </div>
+
+    <div class="tool-card" onclick="openTool('tools/image-resizer.html')">
+     <img src="icons/icons8-image-100.png" alt="Image Resizer" class="tool-icon">
+     <div class="tool-content">
+      <h3>Image Resizer</h3>
+     <p>Use Image Resizer tool easily and quickly.</p>
+     </div>
+   </div>
+
+    <div class="tool-card" onclick="openTool('tools/image-to-pdf.html')">
+     <img src="icons/icons8-image-100.png" alt="Image To PDF" class="tool-icon">
+     <div class="tool-content">
+      <h3>Image To PDF</h3>
+     <p>Use Image To PDF tool easily and quickly.</p>
+     </div>
+   </div>
+
+    <div class="tool-card" onclick="openTool('tools/image-to-svg.html')">
+     <img src="icons/icons8-image-100.png" alt="Image To Svg" class="tool-icon">
+     <div class="tool-content">
+      <h3>Image To Svg</h3>
+     <p>Use Image To Svg tool easily and quickly.</p>
+     </div>
+   </div>
+
+    <div class="tool-card" onclick="openTool('tools/json-formatter.html')">
+     <img src="icons/icons8-json-download-100.png" alt="Json Formatter" class="tool-icon">
+     <div class="tool-content">
+      <h3>Json Formatter</h3>
+     <p>Use Json Formatter tool easily and quickly.</p>
+     </div>
+   </div>
+    
+   <div class="tool-card" onclick="openTool('tools/json-to-csv.html')">
+     <img src="icons/icons8-json-download-100.png" alt="Json To Csv" class="tool-icon">
+     <div class="tool-content">
+      <h3>Json To Csv</h3>
+     <p>Use Json To Csv tool easily and quickly.</p>
+     </div>
+   </div>
+
+    <div class="tool-card" onclick="openTool('tools/json-validator.html')">
+     <img src="icons/icons8-json-download-100.png" alt="Json Validator" class="tool-icon">
+     <div class="tool-content">
+      <h3>Json Validator</h3>
+     <p>Use Json Validator tool easily and quickly.</p>
+     </div>
+   </div>
+
+    <div class="tool-card" onclick="openTool('tools/markdown-preview.html')">
+     <img src="icons/icons8-markdown-100.png" alt="Markdown Preview" class="tool-icon">
+     <div class="tool-content">
+      <h3>Markdown Preview</h3>
+     <p>Use Markdown Preview tool easily and quickly.</p>
+     </div>
+   </div>
+
+    <div class="tool-card" onclick="openTool('tools/merge-pdf.html')">
+     <img src="icons/icons8-pdf-100.png" alt="Merge Pdf" class="tool-icon">
+     <div class="tool-content">
+      <h3>Merge Pdf</h3>
+     <p>Use Merge Pdf tool easily and quickly.</p>
+     </div>
+   </div>
+
+    <div class="tool-card" onclick="openTool('tools/online-notepad.html')">
+     <img src="icons/icons8-notepad-100.png" alt="Online Notepad" class="tool-icon">
+     <div class="tool-content">
+      <h3>Online Notepad</h3>
+     <p>Use Online Notepad tool easily and quickly.</p>
+     </div>
+   </div>
+
+    <div class="tool-card" onclick="openTool('tools/password-generator.html')">
+     <img src="icons/icons8-password-100.png" alt="Password Generator" class="tool-icon">
+     <div class="tool-content">
+      <h3>Password Generator</h3>
+     <p>Use Password Generator tool easily and quickly.</p>
+     </div>
+   </div>
+
+    <div class="tool-card" onclick="openTool('tools/password-strength-checker.html')">
+     <img src="icons/icons8-password-100.png" alt="Password Strength Checker" class="tool-icon">
+     <div class="tool-content">
+      <h3>Password Strength Checker</h3>
+     <p>Use Password Strength Checker tool easily and quickly.</p>
+     </div>
+   </div>
+
+    <div class="tool-card" onclick="openTool('tools/pdf-to-image.html')">
+     <img src="icons/icons8-pdf-100.png" alt="Pdf To Image" class="tool-icon">
+     <div class="tool-content">
+      <h3>Pdf To Image</h3>
+     <p>Use Pdf To Image tool easily and quickly.</p>
+     </div>
+   </div>
+
+    <div class="tool-card" onclick="openTool('tools/qr-code-generator.html')">
+     <img src="icons/icons8-qr-code-100.png" alt="Qr Code Generator" class="tool-icon">
+     <div class="tool-content">
+      <h3>Qr Code Generator</h3>
+     <p>Use Qr Code Generator tool easily and quickly.</p>
+     </div>
+   </div>
+
+    <div class="tool-card" onclick="openTool('tools/remove-extra-spaces.html')">
+     <img src="icons/icons8-space-key-100.png" alt="Remove Extra Spaces" class="tool-icon">
+     <div class="tool-content">
+      <h3>Remove Extra Spaces</h3>
+     <p>Use Remove Extra Spaces tool easily and quickly.</p>
+     </div>
+   </div>
+
+   <div class="tool-card" onclick="openTool('tools/text-capitalize.html')">
+     <img src="icons/icons8-text-100.png" alt="Text Capitalize" class="tool-icon">
+     <div class="tool-content">
+      <h3>Text Capitalize</h3>
+     <p>Use Text Capitalize tool easily and quickly.</p>
+     </div>
+   </div>
+
+    <div class="tool-card" onclick="openTool('tools/text-decryptor.html')">
+     <img src="icons/icons8-text-100.png" alt="Text Decryptor" class="tool-icon">
+     <div class="tool-content">
+      <h3>Text Decryptor</h3>
+     <p>Use Text Decryptor tool easily and quickly.</p>
+     </div>
+   </div>
+
+    <div class="tool-card" onclick="openTool('tools/text-duplicate-line-highlighter.html')">
+     <img src="icons/icons8-text-100.png" alt="Text Duplicate Line Highlighter" class="tool-icon">
+     <div class="tool-content">
+      <h3>Text Duplicate Line Highlighter</h3>
+     <p>Use Text Duplicate Line Highlighter tool easily and quickly.</p>
+     </div>
+   </div>
+
+    <div class="tool-card" onclick="openTool('tools/text-duplicate-remover.html')">
+     <img src="icons/icons8-text-100.png" alt="Text Duplicate Remover" class="tool-icon">
+     <div class="tool-content">
+      <h3>Text Duplicate Remover</h3>
+     <p>Use Text Duplicate Remover tool easily and quickly.</p>
+     </div>
+   </div>
+
+    <div class="tool-card" onclick="openTool('tools/text-encryptor.html')">
+     <img src="icons/icons8-text-100.png" alt="Text Encryptor" class="tool-icon">
+     <div class="tool-content">
+      <h3>Text Encryptor</h3>
+     <p>Use Text Encryptor tool easily and quickly.</p>
+     </div>
+   </div>
+
+    <div class="tool-card" onclick="openTool('tools/text-line-counter.html')">
+     <img src="icons/icons8-text-100.png" alt="Text Line Counter" class="tool-icon">
+     <div class="tool-content">
+      <h3>Text Line Counter</h3>
+     <p>Use Text Line Counter tool easily and quickly.</p>
+     </div>
+   </div>
+
+    <div class="tool-card" onclick="openTool('tools/text-line-sorter.html')">
+     <img src="icons/icons8-text-100.png" alt="Text Line Sorter" class="tool-icon">
+     <div class="tool-content">
+      <h3>Text Line Sorter</h3>
+     <p>Use Text Line Sorter tool easily and quickly.</p>
+     </div>
+   </div>
+
+    <div class="tool-card" onclick="openTool('tools/text-lowercase.html')">
+     <img src="icons/icons8-text-100.png" alt="Text Lowercase" class="tool-icon">
+     <div class="tool-content">
+      <h3>Text Lowercase</h3>
+     <p>Use Text Lowercase tool easily and quickly.</p>
+     </div>
+   </div>
+
+    <div class="tool-card" onclick="openTool('tools/text-reverser.html')">
+     <img src="icons/icons8-text-100.png" alt="Text Reverser" class="tool-icon">
+     <div class="tool-content">
+      <h3>Text Reverser</h3>
+     <p>Use Text Reverser tool easily and quickly.</p>
+     </div>
+   </div>
+
+    <div class="tool-card" onclick="openTool('tools/text-statistics.html')">
+     <img src="icons/icons8-text-100.png" alt="Text Statistics" class="tool-icon">
+     <div class="tool-content">
+      <h3>Text Statistics</h3>
+     <p>Use Text Statistics tool easily and quickly.</p>
+     </div>
+   </div>
+
+    <div class="tool-card" onclick="openTool('tools/text-to-speech.html')">
+     <img src="icons/icons8-text-100.png" alt="Text To Speech" class="tool-icon">
+     <div class="tool-content">
+      <h3>Text To Speech</h3>
+     <p>Use Text To Speech tool easily and quickly.</p>
+     </div>
+   </div>
+
+    <div class="tool-card" onclick="openTool('tools/text-uppercase.html')">
+     <img src="icons/icons8-text-100.png" alt="Text Uppercase" class="tool-icon">
+     <div class="tool-content">
+      <h3>Text Uppercase</h3>
+     <p>Use Text Uppercase tool easily and quickly.</p>
+     </div>
+   </div>
+
+    <div class="tool-card" onclick="openTool('tools/text-word-counter.html')">
+     <img src="icons/icons8-text-100.png" alt="Text Word Counter" class="tool-icon">
+     <div class="tool-content">
+      <h3>Text Word Counter</h3>
+     <p>Use Text Word Counter tool easily and quickly.</p>
+     </div>
+   </div>
+
+    <div class="tool-card" onclick="openTool('tools/url-decoder.html')">
+     <img src="icons/icons8-url-100.png" alt="Url Decoder" class="tool-icon">
+     <div class="tool-content">
+      <h3>Url Decoder</h3>
+     <p>Use Url Decoder tool easily and quickly.</p>
+     </div>
+   </div>
+
+    <div class="tool-card" onclick="openTool('tools/url-encoder.html')">
+     <img src="icons/icons8-url-100.png" alt="Url Encoder" class="tool-icon">
+     <div class="tool-content">
+      <h3>Url Encoder</h3>
+     <p>Use Url Encoder tool easily and quickly.</p>
+     </div>
+   </div>
+
+    <div class="tool-card" onclick="openTool('tools/video-player.html')">
+     <img src="icons/icons8-video-100.png" alt="Video Player" class="tool-icon">
+     <div class="tool-content">
+      <h3>Video Player</h3>
+     <p>Use Video Player tool easily and quickly.</p>
+     </div>
+   </div>
+
+    <div class="tool-card" onclick="openTool('tools/word-counter.html')">
+     <img src="icons/icons8-word-100.png" alt="Word Counter" class="tool-icon">
+     <div class="tool-content">
+      <h3>Word Counter</h3>
+     <p>Use Word Counter tool easily and quickly.</p>
+     </div>
+   </div>
+
+    <div class="tool-card" onclick="openTool('tools/word-frequency-counter.html')">
+     <img src="icons/icons8-word-100.png" alt="Word Frequency Counter" class="tool-icon">
+     <div class="tool-content">
+      <h3>Word Frequency Counter</h3>
+     <p>Use Word Frequency Counter tool easily and quickly.</p>
+     </div>
+   </div>
+   <!-- END: Tool Cards -->
+   </div>
+  
+  </div>
+</div>
+    <div class="page-container">
+  <div class="sidebar" id="sidebar">
+    <h2>File-To-File</h2>
+    <!-- Tool links here -->
+  </div>
+</div>
+<div class="tool-popup" id="toolPopup">
+<div class="tool-popup-content animated-popup">
+  <div class="popup-header">
+    <span id="popupToolName">Tool Name</span>
+    <span class="popup-close" onclick="closePopup()">×</span>
+  </div>
+  <div class="iframe-wrapper">
+    <iframe id="toolFrame" src="" frameborder="0"></iframe>
+  </div>
+</div>
+ <script src="script.js"></script>
+</body>
+</html>
